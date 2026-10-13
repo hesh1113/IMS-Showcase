@@ -156,9 +156,9 @@ Alpine.js · Dompdf · PhpSpreadsheet · Git · Linux (AlmaLinux) · OpenLiteSpe
 
 ## Built with AI assistance
 
-I built this project with **[Claude](https://www.anthropic.com/claude)** (by Anthropic) as an AI
-assistant. It helped with requirement gathering, planning, development, testing, debugging,
-deployment and implementation.
+I developed this project myself. When I ran into problems along the way (requirement gathering,
+planning, testing, debugging or deployment), I used **[Claude](https://www.anthropic.com/claude)**
+(by Anthropic) as an AI assistant to help me work through them.
 
 ---
 
