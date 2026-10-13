@@ -6,19 +6,31 @@ It replaces a paper-based process spread across about eleven sections (stores, p
 accounts and others) and answers one question the paper process could not:
 **"This 100 kg came in on one GRN. Where did every kilo go?"**
 
-> **The source code is private** because the system runs the company's live operations. This
-> repository is a showcase: what it does, how it is built, and the engineering problems I solved.
-> All screenshots use fictional demo data (no real staff, stock or contact details). A live
-> walkthrough is available on request.
+> **Portfolio showcase.** This repository contains screenshots and a write-up only. The source
+> code is private because the system runs the company's live operations. All data shown is
+> fictional demo data (no real staff, stock or contact details). A live walkthrough is
+> available on request.
 
 ## At a glance
 
 | | |
 |---|---|
+| **Type** | Web application |
 | **Scope** | 6 document types, 5 roles, 30 database tables, 107 routes |
-| **Code** | ~11,000 lines of PHP, 46 views, written without a framework |
-| **Stack** | PHP 8, MySQL/MariaDB, Tailwind CSS v4, Alpine.js, Composer |
+| **Stack** | PHP 8 (no framework, ~11,000 lines), MySQL/MariaDB, Tailwind CSS v4, Alpine.js, Composer |
 | **Hosting** | VPS (AlmaLinux, CyberPanel/OpenLiteSpeed, Cloudflare), deployed with git |
+
+## What it does
+
+- **Document workflows** for goods received (GRN), store requisitions (SRN), internal and external
+  transfers (RMTN), finished-goods transfers (FGTN), finished-goods receipts (FGGRN), goods issue
+  (GIN) and shipment reservations, each with its own approval steps.
+- **Batch traceability:** every batch records its parents, so any stock can be traced back to the
+  GRN(s) it came from, through blends, splits and production conversions.
+- **Forward stock trace** that reconciles every kilo received to on-hand, shipped or processing loss.
+- **Role-based access** (Supervisor, HOD, Accounts, Management, System Admin) granted per department.
+- **Stock valuation** by Raw Material, WIP (internal and external) and Finished Goods, with an "as of date" mode.
+- Per-user dashboards, notifications, low-stock and aging alerts, global search, PDF and Excel exports.
 
 ## Screenshots
 
@@ -60,7 +72,7 @@ accounts and others) and answers one question the paper process could not:
 
 </details>
 
-## How stock moves
+## How it works
 
 ```mermaid
 flowchart LR
@@ -78,7 +90,7 @@ flowchart LR
 Every arrow is a document with its own approval workflow. Every document that moves stock
 creates, splits or consumes **batches**, and each batch records its parents.
 
-## Engineering problems worth reading about
+## Engineering highlights
 
 **1. Batch genealogy as a graph, not a running total.**
 Stock is never one number. It is the sum of individual batches, each linked to its parent batches
@@ -124,6 +136,12 @@ Deployed to a VPS from git with a read-only deploy key. The web root is the `pub
 so config, SQL files and source are unreachable by URL (verified with automated probes after each
 deploy). A deploy script handles updates, a health check, and rollback.
 
+## My role
+
+I designed and built the whole system end to end as the in-house developer: requirement gathering,
+database design, the batch-traceability engine, approval workflows, role permissions, the web
+interface, reports and exports, testing, and deployment to the company's VPS.
+
 ## What I learned
 
 - Modelling a real business process: the hard part is the rules, not the screens.
@@ -136,6 +154,12 @@ deploy). A deploy script handles updates, a health check, and rollback.
 PHP 8 (no framework, PSR-4 autoloading) · MySQL/MariaDB (InnoDB, transactions) · Tailwind CSS v4 (standalone CLI) ·
 Alpine.js · Dompdf · PhpSpreadsheet · Git · Linux (AlmaLinux) · OpenLiteSpeed · Cloudflare
 
+## Built with AI assistance
+
+I built this project with **[Claude](https://www.anthropic.com/claude)** (by Anthropic) as an AI
+assistant. It helped with requirement gathering, planning, development, testing, debugging,
+deployment and implementation.
+
 ---
 
-*Built by Heshan. The code is private. Contact me through my GitHub profile for a walkthrough.*
+*Built by Heshan. The source code is private. Contact me through my GitHub profile for a walkthrough.*
